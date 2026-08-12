@@ -1,0 +1,8 @@
+1.解压输入包，读取backfill_request.json、existing_dagruns.csv、task_plan.csv和change_request.txt。
+2.在WSL2中创建独立AIRFLOW_HOME，关闭示例DAG加载。
+3.使用Apache Airflow定义internet_event_daily_metrics，并按任务计划创建单向任务链。
+4.设置UTC日程、catchup和max_active_runs，为compute_daily_metrics启用depends_on_past。
+5.在publish_online前放置LatestOnlyOperator，保留历史补数与线上发布的职责边界。
+6.用DagBag加载output/dags并读取DAG属性、任务类型及上下游边。
+7.调用DAG timetable枚举申请窗口内的数据区间，与现有运行账关联生成补数计划和前驱覆盖。
+8.合并连续计划日期，把命令区间与申请中的维护窗、观察指标和回退条件写入业务结果。

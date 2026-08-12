@@ -1,0 +1,11 @@
+操作系统： Windows11加WSL2。
+
+主软件： Apache Airflow2.10.5，在WSL2的Ubuntu24.04中运行。
+
+代码执行依赖： Python3.12、PowerShell7和Apache Airflow自带的DagBag、CronDataIntervalTimetable及LatestOnlyOperator。文件统一使用UTF-8。
+
+CPU与GPU： DAG读取、日区间枚举和补数计划整理只需CPU，不使用GPU。
+
+磁盘： 工作目录需要容纳Airflow环境、输入材料、DAG源码和六份业务结果。
+
+超时： DAG读取与结果整理应在维护窗等待预算内完成，等待预算和回退条件取自backfill_request.json。

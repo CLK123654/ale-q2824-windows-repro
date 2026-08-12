@@ -1,0 +1,7 @@
+互联网事件日指标在六月初留下失败和缺失分区，两个成功分区已经被下游账单使用，不能重复处理。现有DAG没有catchup、前驱约束和LatestOnly屏障，版本负责人也缺少可执行的恢复排期。
+
+existing_dagruns.csv是当前运行账，backfill_request.json给出批准的数据区间、历史发布动作和维护窗安排。task_plan.csv记录任务顺序，starter目录保留当前DAG草稿，change_request.txt说明业务影响和岗位分工。
+
+在Apache Airflow中修复internet_event_daily_metrics。日程使用UTC和daily，启用catchup，compute_daily_metrics保留depends_on_past，publish_online前使用LatestOnlyOperator。用DagBag读取DAG及任务图，并以timetable产生的数据区间对齐补数申请和现有运行账。成功分区保留，失败分区重算，缺失分区创建；补数计划还要说明每个日期的前驱来源。
+
+把DAG源码放在output/dags。results记录任务图、区间覆盖、补数计划、前驱来源、命令区间和维护窗安排，README.txt说明材料去向。版本负责人据此审核范围，维护窗值班再生成命令、启用DAG并观察申请中的指标；历史补数经过LatestOnly时跳过线上发布。
