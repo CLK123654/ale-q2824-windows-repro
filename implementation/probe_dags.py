@@ -13,7 +13,7 @@ parser.add_argument("--start", required=True)
 parser.add_argument("--end", required=True)
 args = parser.parse_args()
 bag = DagBag(dag_folder=str(Path(args.dags).resolve()), include_examples=False, safe_mode=False, read_dags_from_db=False)
-dag = bag.get_dag("internet_event_daily_metrics")
+dag = bag.dags.get("internet_event_daily_metrics")
 payload: dict[str, object] = {"import_errors": {str(key): str(value) for key, value in bag.import_errors.items()}}
 if dag is not None:
     inventory = []
